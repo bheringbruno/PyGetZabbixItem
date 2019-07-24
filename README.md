@@ -15,7 +15,7 @@ pip3 install py-zabbix
 export USER=username
 export PASSWORD=password
 
-zabbix_get_items.py "http://zabbix.server.name/" "Template-Name"
+zabbix_get_items.py "http://zabbix.]server.name/" "Template-Name"
 ```
 
 ### Output ###
