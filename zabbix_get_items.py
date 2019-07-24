@@ -1,8 +1,9 @@
 import requests, json, os, sys
 from pyzabbix.api import ZabbixAPI
 
-template = sys.argv[1]
-url = sys.argv[0]
+url = sys.argv[1]
+template = sys.argv[2]
+
 dicionario = {}
 
 def get(user, password, template):
