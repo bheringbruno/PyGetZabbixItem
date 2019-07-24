@@ -1,11 +1,11 @@
 import requests, json, os, sys
 from pyzabbix.api import ZabbixAPI
 
-template = sys.argv
+template = sys.argv[1]
+url = sys.argv[0]
 dicionario = {}
 
 def get(user, password, template):
-    url = 'https://noc.ageri.com.br/'
     zabbix = ZabbixAPI(url=url, user=user, password=password)
     f = zabbix.do_request('template.get', {'filter': {'host': template},'output': 'templateid'})
     templateid = f['result'][0]['templateid']
