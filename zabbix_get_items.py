@@ -1,12 +1,11 @@
 import requests, json, os, sys
 from pyzabbix.api import ZabbixAPI
 
-url = sys.argv[1]
 template = sys.argv[2]
 
 dicionario = {}
 
-def get(user, password, template):
+def get(user, password, template, url):
     zabbix = ZabbixAPI(url=url, user=user, password=password)
     f = zabbix.do_request('template.get', {'filter': {'host': template},'output': 'templateid'})
     templateid = f['result'][0]['templateid']
@@ -17,9 +16,10 @@ def get(user, password, template):
 
 def get_items(template):
     template = template
+    url = os.environ['URL']
     user = os.environ['USER']
     password = os.environ['PASSWORD']
-    get(user, password, template)
+    get(user, password, template, url)
 
 def main():
     get_items(template)
