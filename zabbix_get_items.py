@@ -1,7 +1,7 @@
 import requests, json, os, sys
 from pyzabbix.api import ZabbixAPI
 
-template = sys.argv[2]
+template = sys.argv[1]
 
 dicionario = {}
 
