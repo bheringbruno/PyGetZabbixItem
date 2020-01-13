@@ -13,12 +13,8 @@ def get(user, password, template, url):
     item = zabbix.do_request('item.get',{'templateids': templateid,'output': 'extend'})
     for n in item['result']:
          dict_item.update({ n['name']: n['key_']})
-    get_triggers(templateid, url, user, password)
-
-def get_triggers(templateid, url, user, password):
-    zabbix = ZabbixAPI(url=url, user=user, password=password)
-    item = zabbix.do_request('trigger.get',{'templateids': templateid,'output': 'extend'})
-    for n in item['result']:
+    triggers = zabbix.do_request('trigger.get',{'templateids': templateid,'output': 'extend'})
+    for n in triggers['result']:
         dict_trigger.update({ n['triggerid']: n['description']})
     zabbix.user.logout()
 
