@@ -3,7 +3,8 @@ from pyzabbix.api import ZabbixAPI
 
 template = sys.argv[1]
 
-dicionario = {}
+dict_item = {}
+dict_trigger = {}
 
 def get(user, password, template, url):
     zabbix = ZabbixAPI(url=url, user=user, password=password)
@@ -11,7 +12,14 @@ def get(user, password, template, url):
     templateid = f['result'][0]['templateid']
     item = zabbix.do_request('item.get',{'templateids': templateid,'output': 'extend'})
     for n in item['result']:
-         dicionario.update({ n['name']: n['key_']})
+         dict_item.update({ n['name']: n['key_']})
+    get_triggers(templateid, url, user, password)
+
+def get_triggers(templateid, url, user, password):
+    zabbix = ZabbixAPI(url=url, user=user, password=password)
+    item = zabbix.do_request('trigger.get',{'templateids': templateid,'output': 'extend'})
+    for n in item['result']:
+        dict_trigger.update({ n['triggerid']: n['description']})
     zabbix.user.logout()
 
 def get_items(template):
@@ -23,7 +31,8 @@ def get_items(template):
 
 def main():
     get_items(template)
-    print(json.dumps(dicionario, indent=4, sort_keys=True))
+    print("ITEMS" + json.dumps(dict_item, indent=4, sort_keys=True))
+    print("TRIGGERS" + json.dumps(dict_trigger, indent=4, sort_keys=True))
 
 if __name__ == "__main__":
     main()
