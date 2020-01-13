@@ -1,4 +1,4 @@
-## Get Item Zabbix ##
+## Get Item & Triggers Zabbix ##
 
 * Python 3
 
@@ -16,7 +16,7 @@ export URL="http://zabbix.server.name/"
 export USER=username
 export PASSWORD=password
 
-zabbix_get_items.py "Template-Name"
+python3 zabbix_get_items.py "Template-Name"
 ```
 
 ### Output ###
